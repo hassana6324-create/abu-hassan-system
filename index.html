@@ -94,33 +94,36 @@
         .invoice-table td { border-bottom: 1px solid #eee; padding: 8px 5px; text-align: center; vertical-align: middle;}
         .invoice-footer-note { text-align: center; margin-top: 20px; font-size: 0.75rem; color: #555; border-top: 1px solid #eee; padding-top: 5px; }
 
-        /* تنسيق حقول الزبون الجديدة (النصوص القابلة للنقر) */
+        /* تنسيق معلومات الزبون الجديد - في نفس السطر */
         .customer-info-row {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 10px;
-            text-align: right;
-        }
-        .customer-info-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px 0;
+            margin-top: 15px;
+            padding: 10px 0;
+            border-top: 1px dashed #ddd;
             border-bottom: 1px dashed #ddd;
+            flex-wrap: nowrap;
+        }
+        .customer-info-item {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
             cursor: pointer;
             transition: all 0.2s ease;
+            padding: 8px 5px;
+            border-radius: 5px;
         }
         .customer-info-item:hover {
             background-color: #f5f5f5;
-            border-radius: 5px;
-            padding: 6px 8px;
         }
         .customer-info-label {
             font-weight: bold;
             color: #333;
             font-size: 0.9rem;
             white-space: nowrap;
+            margin-left: 8px;
         }
         .customer-info-value {
             color: var(--blue);
@@ -128,14 +131,25 @@
             font-size: 0.9rem;
             text-decoration: underline;
             text-decoration-style: dashed;
-            min-width: 120px;
+            min-width: 0;
             text-align: left;
-            padding-right: 5px;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .customer-info-value.empty {
             color: #999;
             font-style: italic;
             font-weight: normal;
+        }
+        
+        /* خط فاصل بين العنصرين */
+        .customer-info-separator {
+            width: 1px;
+            height: 30px;
+            background-color: #ddd;
+            margin: 0 10px;
         }
 
         /* --- ثيمات الفاتورة --- */
@@ -223,7 +237,6 @@
             /* جعل معلومات الزبون تبدو كنص عادي عند الطباعة */
             .customer-info-item {
                 cursor: default !important;
-                border-bottom: 1px solid #ddd !important;
             }
             .customer-info-value {
                 text-decoration: none !important;
@@ -233,6 +246,23 @@
             .customer-info-value.empty {
                 color: #666 !important;
                 font-style: italic !important;
+            }
+            .customer-info-separator {
+                background-color: #999 !important;
+            }
+        }
+        
+        /* استجابة للشاشات الصغيرة */
+        @media (max-width: 400px) {
+            .customer-info-label {
+                font-size: 0.8rem;
+                margin-left: 5px;
+            }
+            .customer-info-value {
+                font-size: 0.8rem;
+            }
+            .customer-info-separator {
+                margin: 0 5px;
             }
         }
     </style>
@@ -278,23 +308,26 @@
             <div class="invoice-box style-formal" id="invoiceToSave">
                 <div class="shop-header">
                     <h2 style="margin:0;">أبو حسن للحديد الصناعي</h2>
-                    <p style="margin:5px; font-size:0.9rem; font-weight:bold;">العنوان - بغداد - الشعب - شارع الصحة - مقابيل جامع الحق</p>
+                    <p style="margin:5px; font-size:0.9rem; font-weight:bold;">العنوان - الشعب - شارع الصحة - مقابيل جامع الحق</p>
                     <p style="font-size:0.9rem; font-weight:bold;">رقم الهاتف: <span id="phoneDisplay"></span></p>
                     
                     <div style="display:flex; justify-content:space-between; margin-top:10px; font-size:0.8rem; font-weight:bold;">
-                        <span>رقم: <span id="invoiceNum"></span></span>
+                        <span>رقم الفاتورة: <span id="invoiceNum"></span></span>
                         <span id="invoiceDate"></span>
                     </div>
                     
-                    <!-- تم استبدال حقول الإدخال بنصوص قابلة للنقر -->
+                    <!-- تم تعديل تصميم معلومات الزبون لتكون في نفس السطر -->
                     <div class="customer-info-row">
                         <div class="customer-info-item" onclick="openEditCustomerName()">
                             <span class="customer-info-label">حضرة السيد:</span>
-                            <span id="customerNameDisplay" class="customer-info-value empty">انقر لإضافة اسم الزبون</span>
+                            <span id="customerNameDisplay" class="customer-info-value empty">انقر للإضافة</span>
                         </div>
+                        
+                        <div class="customer-info-separator"></div>
+                        
                         <div class="customer-info-item" onclick="openEditCustomerPhone()">
                             <span class="customer-info-label">رقم الهاتف:</span>
-                            <span id="customerPhoneDisplay" class="customer-info-value empty">انقر لإضافة رقم الهاتف</span>
+                            <span id="customerPhoneDisplay" class="customer-info-value empty">انقر للإضافة</span>
                         </div>
                     </div>
                 </div>
@@ -436,7 +469,7 @@
                 nameDisplay.textContent = customerName;
                 nameDisplay.className = "customer-info-value";
             } else {
-                nameDisplay.textContent = "انقر لإضافة اسم الزبون";
+                nameDisplay.textContent = "انقر للإضافة";
                 nameDisplay.className = "customer-info-value empty";
             }
             
@@ -444,7 +477,7 @@
                 phoneDisplay.textContent = customerPhone;
                 phoneDisplay.className = "customer-info-value";
             } else {
-                phoneDisplay.textContent = "انقر لإضافة رقم الهاتف";
+                phoneDisplay.textContent = "انقر للإضافة";
                 phoneDisplay.className = "customer-info-value empty";
             }
         }
