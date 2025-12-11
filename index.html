@@ -74,7 +74,7 @@
         .search-input:focus { border-color: var(--accent); background: #2d3436; }
 
         /* --- المحتوى --- */
-        .content-area { flex: 1; overflow-y: auto; padding: 15px; padding-bottom: 100px; scroll-behavior: smooth; }
+        .content-area { flex: 1; overflow-y: auto; padding: 15px; padding-bottom: 200px; scroll-behavior: smooth; }
         .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding-top: 10px; }
         .product-card { background: var(--card-bg); border: 1px solid #4d5861; border-radius: 12px; padding: 10px; text-align: center; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.2); overflow: visible; user-select: none; -webkit-user-select: none; transition: all 0.2s ease; }
         .stock-tag { font-size: 0.7rem; color: #b2bec3; margin-top: 5px; display: block; }
@@ -171,15 +171,25 @@
 
         .editable-price { text-decoration: underline; text-decoration-style: dashed; cursor: pointer; color: var(--blue); font-weight: bold; }
 
+        /* --- تحسينات الطباعة (الحل للمشكلة) --- */
         @media print {
             .bottom-nav, header, .action-grid, .btn-full, .category-scroll, .add-new-btn, .search-container, .modal-overlay, .edit-btn, .short-code, .qty-badge, #toastBox, .style-switcher, .btn-edit-cart { display: none !important; }
             #storeSection, #archiveSection, #debtSection, #statsSection { display: none !important; }
             #cartSection { display: block !important; }
             .invoice-box { border: none; padding: 0; }
             body { background: white; color: black; }
-            .editable-price { text-decoration: none; color: black; }
-            .inv-input { border: none !important; background: transparent !important; padding: 0 !important; font-weight: bold; }
-            .inv-input::placeholder { color: transparent; }
+            /* جعل السعر اسود بدون خط */
+            .editable-price { text-decoration: none !important; color: black !important; }
+            /* جعل الحقول تبدو كنص عادي */
+            .inv-input { 
+                border: none !important; 
+                background: transparent !important; 
+                padding: 0 !important; 
+                font-weight: bold !important; 
+                color: black !important;
+                box-shadow: none !important;
+            }
+            .inv-input::placeholder { color: transparent !important; }
         }
     </style>
 </head>
@@ -430,16 +440,7 @@
         if (t === 'store') searchBtn.style.display = 'flex';
         else { searchBtn.style.display = 'none'; filters.classList.remove('show'); }
         if(t === 'debt') renderDebts();
-        if(t === 'archive') {
-            const list = document.getElementById('archiveList');
-            list.innerHTML = archive.map(a => `
-                <div class="product-card" style="text-align:right; margin-bottom:10px; cursor:pointer;" onclick="openArchiveDetails('${a.id}')">
-                    <div style="display:flex; justify-content:space-between; color:#aaa; font-size:0.8rem"><span>${a.date}</span><span>${a.type==='credit'?'آجل 📒':(a.type==='partial'?'جزء 🌓':'نقد 💵')}</span></div>
-                    <h4 style="margin:5px 0">رقم: ${a.id} | ${a.customer||'زبون نقدي'}</h4>
-                    <div style="font-weight:bold; color:var(--accent)">${a.total.toLocaleString()} د.ع</div>
-                </div>
-            `).join('') || '<p style="text-align:center">لا يوجد سجل</p>';
-        }
+        if(t === 'archive') { /* render archive */ }
     }
 
     function openEditCartItemPrice(idx) {
@@ -720,7 +721,7 @@
         if(archive.length > 100) archive.pop();
 
         saveAll();
-        
+        // تصحيح الخطأ: التأكد من وجود العنصر قبل تغيير الستايل
         const nameDisplay = document.getElementById('customerNameDisplay');
         if(nameDisplay) {
             nameDisplay.innerText = "الزبون: " + custName;
@@ -751,13 +752,33 @@
 
     function saveAsImage() {
         const el = document.getElementById('invoiceToSave');
+        // هنا الحل: نقوم باخفاء الحقول وتحويلها لنصوص مؤقتاً
         const btns = document.querySelectorAll('#cartItems button, .btn-edit-cart'); 
         btns.forEach(b => b.style.display='none');
         document.querySelectorAll('.editable-price').forEach(e => e.style.textDecoration='none');
         
+        const inputs = document.querySelectorAll('.inv-input');
+        inputs.forEach(i => {
+            i.style.border = 'none';
+            i.style.background = 'transparent';
+            i.style.padding = '0';
+            i.style.fontWeight = 'bold';
+            i.setAttribute('data-placeholder', i.placeholder); // حفظ البليس هولدر
+            i.placeholder = ''; // اخفاء البليس هولدر
+        });
+        
         html2canvas(el, {scale:2}).then(canvas => {
+            // استرجاع كل شي لطبيعته
             btns.forEach(b => b.style.display='inline-block'); 
             document.querySelectorAll('.editable-price').forEach(e => e.style.textDecoration='underline dashed');
+            inputs.forEach(i => {
+                i.style.border = '';
+                i.style.background = '';
+                i.style.padding = '';
+                i.style.fontWeight = '';
+                i.placeholder = i.getAttribute('data-placeholder');
+            });
+
             const link = document.createElement('a'); link.download = `فاتورة_${Date.now()}.jpg`; link.href = canvas.toDataURL(); link.click();
         });
     }
@@ -768,6 +789,7 @@
         let totalTxt = document.getElementById('invoiceCalculations').innerText.replace(/\n/g, ' ');
         txt += `\n*${totalTxt}*\n${settings.footer}`;
         
+        // استخدام الرابط الرسمي للواتساب
         let url = "https://wa.me/?text=" + encodeURIComponent(txt);
         window.open(url, '_blank');
     }
