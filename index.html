@@ -1147,22 +1147,6 @@ body.light-mode .toast.warning {
             PENDING_CHANGES: 'abuhassan_pending_changes'
         };
 
-        // === دالة لحفظ البيانات محلياً ===
-function saveToLocalStorage(key, data) {
-    // منع حفظ السلة في localStorage
-    if (key === LOCAL_STORAGE_KEYS.CART) {
-        return true; // نعود بـ true لكن لا نحفظ فعلياً
-    }
-    
-    try {
-        localStorage.setItem(key, JSON.stringify(data));
-        return true;
-    } catch (error) {
-        console.error('خطأ في حفظ البيانات محلياً:', error);
-        return false;
-    }
-}
-
         // === دالة لتحميل البيانات محلياً ===
         function loadFromLocalStorage(key, defaultValue = []) {
             try {
@@ -1176,28 +1160,39 @@ function saveToLocalStorage(key, data) {
             return defaultValue;
         }
 
-        // === دالة لحفظ جميع البيانات محلياً ===
+// === دالة لحفظ البيانات محلياً (نسخة نظيفة) ===
+function saveToLocalStorage(key, data) {
+    try {
+        localStorage.setItem(key, JSON.stringify(data));
+        return true;
+    } catch (error) {
+        console.error('خطأ في حفظ البيانات محلياً:', error);
+        return false;
+    }
+}
+
+// === دالة لحفظ جميع البيانات محلياً (نسخة نظيفة) ===
 function saveAllToLocalStorage() {
+    // حفظ كل البيانات ما عدا السلة
     const success = 
         saveToLocalStorage(LOCAL_STORAGE_KEYS.PRODUCTS, products) &&
         saveToLocalStorage(LOCAL_STORAGE_KEYS.ARCHIVE, archive) &&
         saveToLocalStorage(LOCAL_STORAGE_KEYS.DEBTS, debts) &&
         saveToLocalStorage(LOCAL_STORAGE_KEYS.SETTINGS, settings) &&
         saveToLocalStorage(LOCAL_STORAGE_KEYS.PASSWORD, appPassword);
-        // تم إزالة حفظ السلة هنا
     
+    // حفظ وقت المزامنة
     lastSyncTime = Date.now();
     saveToLocalStorage(LOCAL_STORAGE_KEYS.LAST_SYNC, lastSyncTime);
     
-    // مسح السلة من localStorage إذا كانت موجودة
+    // ضمان مسح السلة دائماً
     try {
         localStorage.removeItem(LOCAL_STORAGE_KEYS.CART);
-    } catch (e) {
-        console.log("لا يمكن مسح السلة من التخزين المحلي:", e);
-    }
+    } catch (e) { }
     
     return success;
 }
+
 
         // === دالة لتحميل جميع البيانات محلياً ===
 function loadAllFromLocalStorage() {
@@ -1280,7 +1275,7 @@ function resetCartOnReload() {
         // تجاهل الخطأ
     }
     
-    console.log("تم إعادة تعيين القائمة بعد تحميل الصفحة");
+    //console.log("تم إعادة تعيين القائمة بعد تحميل الصفحة");
 }
         
 
@@ -1321,22 +1316,6 @@ function updateConnectionStatus() {
         connectionHideTimer = setTimeout(() => {
             connectionStatus.classList.add('hidden');
         }, 2000);
-    }
-}
-
-// دالة للتحقق من اكتمال المزامنة وتحديث الشريط
-function checkSyncCompletion() {
-    if (isOnline && !isSyncing) {
-        // إذا انتهت المزامنة وكانت الحالة متصلة
-        console.log("المزامنة اكتملت، تحديث شريط الحالة...");
-        showConnectionStatusTemporarily('متصل بالسحابة وجاهز للعمل', 'success');
-        
-        // تحديث أي مؤشرات أخرى تحتاج للتحديث
-        setTimeout(() => {
-            if (document.getElementById('storeSection').style.display !== 'none') {
-                allProductCards.forEach(updateProductCard);
-            }
-        }, 100);
     }
 }
 
@@ -1435,7 +1414,7 @@ async function syncChanges() {
     if (!isOnline || isSyncing || pendingChanges.length === 0) return;
     
     isSyncing = true;
-    console.log("بدء مزامنة التغييرات المحلية...");
+    //console.log("بدء مزامنة التغييرات المحلية...");
     
     try {
         showConnectionStatusTemporarily('جاري رفع التغييرات المحلية...', 'syncing', 2000);
@@ -1530,7 +1509,7 @@ async function syncChanges() {
                 if (passwordData && passwordData.hash) {
                     appPassword = passwordData.hash;
                     saveToLocalStorage(LOCAL_STORAGE_KEYS.PASSWORD, appPassword);
-                    console.log("تم تحميل كلمة السر من Firebase");
+                    //console.log("تم تحميل كلمة السر من Firebase");
                     return true;
                 }
                 return false;
@@ -1558,7 +1537,7 @@ async function syncChanges() {
                 
                 appPassword = newHash;
                 saveToLocalStorage(LOCAL_STORAGE_KEYS.PASSWORD, appPassword);
-                console.log("تم تحديث كلمة السر في Firebase");
+                //console.log("تم تحديث كلمة السر في Firebase");
                 return true;
             } catch (error) {
                 console.error('خطأ في حفظ كلمة السر إلى Firebase:', error);
@@ -1601,7 +1580,7 @@ async function syncAll() {
     if (!isOnline || isSyncing) return;
     
     isSyncing = true;
-    console.log("بدء المزامنة الكاملة...");
+    //console.log("بدء المزامنة الكاملة...");
     
     try {
         // إظهار شريط المزامنة (أزرق)
@@ -1633,7 +1612,7 @@ async function syncAll() {
         
         if (errorCount === 0) {
             // كل شيء ناجح
-            console.log("تمت مزامنة جميع البيانات مع Firebase بنجاح");
+            //console.log("تمت مزامنة جميع البيانات مع Firebase بنجاح");
             showToast("تمت المزامنة الكاملة بنجاح");
             showConnectionStatusTemporarily('تمت المزامنة بنجاح', 'success');
         } else if (successCount > 0) {
@@ -1797,7 +1776,7 @@ async function syncDebts() {
         
         // رفع الديون المدمجة إلى Firebase
         await db.ref('debts').set(debts);
-        console.log("تمت مزامنة الديون مع Firebase");
+        //console.log("تمت مزامنة الديون مع Firebase");
         return true;
     } catch (error) {
         console.error('خطأ في مزامنة الديون:', error);
@@ -1883,7 +1862,7 @@ async function setupFirebase() {
             if (isOnline && !isSyncing) {
                 await syncAll();
                 // بعد اكتمال المزامنة، تحقق من الحالة
-                setTimeout(checkSyncCompletion, 500);
+                showConnectionStatusTemporarily('متصل بالسحابة وجاهز للعمل', 'success');
             }
         }, 1000);
         
@@ -2194,6 +2173,21 @@ async function setupFirebase() {
             };
         }
 
+// تنظيف السلة والمؤقتات عند إغلاق الصفحة
+window.addEventListener('beforeunload', function() {
+    // 1. تفريغ السلة من الذاكرة
+    cart = [];
+    try {
+        localStorage.removeItem(LOCAL_STORAGE_KEYS.CART);
+    } catch (error) { /* تجاهل */ }
+
+    // 2. تنظيف مؤقت شريط الاتصال
+    if (connectionHideTimer) {
+        clearTimeout(connectionHideTimer);
+    }
+});
+
+
         // === Initialize App ===
         window.onload = async function() {
             initPWA();
@@ -2314,7 +2308,7 @@ function updateUIFromLocalData() {
                 if (passwordData && passwordData.hash) {
                     appPassword = passwordData.hash;
                     saveToLocalStorage(LOCAL_STORAGE_KEYS.PASSWORD, appPassword);
-                    console.log("تم تحديث كلمة السر من Firebase في الوقت الحقيقي");
+                    //console.log("تم تحديث كلمة السر من Firebase في الوقت الحقيقي");
                 }
             });
 
@@ -2375,7 +2369,7 @@ db.ref('debts').on('value', (snapshot) => {
     
     // إذا كانت الديون في Firebase فارغة، تأكد من أن المحلية فارغة أيضاً
     if (firebaseDebts.length === 0 && debts.length > 0) {
-        console.log("Firebase يشير إلى عدم وجود ديون، جاري مسح الديون المحلية");
+        //console.log("Firebase يشير إلى عدم وجود ديون، جاري مسح الديون المحلية");
         debts = [];
         saveToLocalStorage(LOCAL_STORAGE_KEYS.DEBTS, debts);
         
@@ -2689,27 +2683,6 @@ function showToast(msg, type = 'info') {
         }
         
 
-// === دالة للتحقق من حذف الديون من Firebase ===
-async function verifyDebtsDeleted() {
-    if (!db) return false;
-    
-    try {
-        const snapshot = await db.ref('debts').once('value');
-        const firebaseDebts = snapshot.val() || [];
-        
-        if (firebaseDebts.length === 0) {
-            console.log("✅ الديون محذوفة تماماً من Firebase");
-            return true;
-        } else {
-            console.log("⚠️ لا يزال هناك ديون في Firebase:", firebaseDebts.length);
-            return false;
-        }
-    } catch (error) {
-        console.error('خطأ في التحقق من حذف الديون:', error);
-        return false;
-    }
-}
-
         async function clearDebts() { 
     showConfirm('هل أنت متأكد من حذف كل سجل الديون نهائياً من الموقع والسحابة؟', async () => { 
         try {
@@ -2721,7 +2694,7 @@ async function verifyDebtsDeleted() {
             if (isOnline && db) {
                 try {
                     await db.ref('debts').remove(); // هذا هو السطر الحاسم!
-                    console.log("تم حذف الديون من Firebase بنجاح");
+                    //console.log("تم حذف الديون من Firebase بنجاح");
                     showToast('تم حذف جميع الديون نهائياً من السحابة', 'success');
                 } catch (firebaseError) {
                     console.error('خطأ في حذف الديون من Firebase:', firebaseError);
@@ -3648,7 +3621,7 @@ async function manualSync() {
         
         // بعد اكتمال المزامنة اليدوية
         setTimeout(() => {
-            checkSyncCompletion();
+            showConnectionStatusTemporarily('متصل بالسحابة وجاهز للعمل', 'success');
         }, 500);
         
     } catch (error) {
@@ -3854,44 +3827,6 @@ async function manualSync() {
         function openClearModal(){ 
             if(cart.length>0) showModal('تفريغ', `<button class="btn btn-delete" style="width:100%;" onclick="clearCart()">مسح الكل</button>`); 
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // The main initialization is in window.onload
-        });
-        
-        // إضافة مستمع حدث لتفريغ السلة قبل إغلاق أو إعادة تحميل الصفحة
-window.addEventListener('beforeunload', function(e) {
-    // تفريغ السلة
-    cart = [];
-    
-    // مسح السلة من localStorage
-    try {
-        localStorage.removeItem(LOCAL_STORAGE_KEYS.CART);
-    } catch (error) {
-        // تجاهل الخطأ
-    }
-    
-    // إذا كنت تريد منع رسالة التأكيد الافتراضية، يمكنك إلغاء التعليق من السطر التالي:
-    // e.preventDefault();
-});
-
-// مستمع حدث لإعادة التحميل
-window.addEventListener('unload', function() {
-    // تأكد من مسح السلة
-    try {
-        localStorage.removeItem(LOCAL_STORAGE_KEYS.CART);
-    } catch (error) {
-        // تجاهل الخطأ
-    }
-});
-        
-        
-        // تنظيف المؤقتات عند إغلاق الصفحة
-window.addEventListener('beforeunload', function() {
-    if (connectionHideTimer) {
-        clearTimeout(connectionHideTimer);
-    }
-});
         
     </script>
 </body>
