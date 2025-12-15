@@ -1,0 +1,866 @@
+/* --- المتغيرات والألوان --- */
+:root {
+    --bg-dark: #1e272e;
+    --bg-light: #f5f5f5;
+    --card-bg-dark: #2d3436;
+    --card-bg-light: #ffffff;
+    --text-main-dark: #dfe6e9;
+    --text-main-light: #333333;
+    --accent: #e17055;
+    --green: #00b894;
+    --red: #d63031;
+    --blue: #0984e3;
+    --whatsapp: #25D366;
+    --yellow: #f1c40f;
+    --purple: #6c5ce7;
+    --modal-bg-dark: #353b48;
+    --modal-bg-light: #f9f9f9;
+    --border-dark: #4d5861;
+    --border-light: #ddd;
+    --input-bg-dark: #222;
+    --input-bg-light: white;
+    --input-border-dark: #555;
+    --input-border-light: #ccc;
+    --input-text-dark: white;
+    --input-text-light: #333;
+    --detail-bg-dark: #222;
+    --detail-bg-light: #f9f9f9;
+    --toast-bg-dark: rgba(45, 52, 54, 0.95);
+    --toast-text-dark: white;
+    --toast-border-dark: var(--accent);
+    --toast-bg-light: rgba(249, 249, 249, 0.95);
+    --toast-text-light: #333333;
+    --toast-border-light: var(--accent);
+}
+
+/* الوضع الليلي */
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-main-dark);
+}
+body.dark-mode .content-area {
+    background-color: var(--bg-dark);
+}
+body.dark-mode .product-card {
+    background: var(--card-bg-dark);
+    border-color: var(--border-dark);
+    color: var(--text-main-dark);
+}
+body.dark-mode .modal-content {
+    background: var(--modal-bg-dark);
+    color: var(--text-main-dark);
+    border-color: var(--border-dark);
+}
+body.dark-mode .modal-content h3 {
+    color: var(--text-main-dark);
+}
+body.dark-mode .search-input {
+    background: var(--input-bg-dark);
+    border-color: var(--input-border-dark);
+    color: var(--input-text-dark);
+}
+body.dark-mode .stat-box {
+    background: var(--card-bg-dark);
+    border-color: var(--border-dark);
+}
+body.dark-mode .cat-tab {
+    background: #4d5861;
+    color: #b2bec3;
+}
+body.dark-mode .cat-tab.active {
+    background: var(--accent);
+    color: white;
+}
+body.dark-mode .modal-input {
+    background: var(--input-bg-dark);
+    border-color: var(--input-border-dark);
+    color: var(--input-text-dark);
+}
+body.dark-mode .modal-input::placeholder {
+    color: #aaa;
+}
+body.dark-mode .detail-row {
+    border-bottom-color: #444;
+    color: var(--text-main-dark);
+}
+body.dark-mode .history-item {
+    border-bottom-color: #555;
+}
+body.dark-mode .chart-container {
+    background: var(--card-bg-dark);
+    color: var(--text-main-dark);
+}
+body.dark-mode .detail-container {
+    background: var(--detail-bg-dark);
+    color: var(--text-main-dark);
+}
+body.dark-mode .detail-container .detail-row {
+    border-bottom-color: #444;
+    color: var(--text-main-dark);
+}
+body.dark-mode .detail-container .detail-row span {
+    color: var(--text-main-dark);
+}
+body.dark-mode .detail-container .detail-total {
+    color: var(--accent);
+}
+
+/* الوضع النهاري */
+body.light-mode {
+    background-color: var(--bg-light);
+    color: var(--text-main-light);
+}
+body.light-mode .content-area {
+    background-color: var(--bg-light);
+}
+body.light-mode .product-card {
+    background: var(--card-bg-light);
+    border-color: var(--border-light);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    color: var(--text-main-light);
+}
+body.light-mode .modal-content {
+    background: var(--modal-bg-light);
+    color: var(--text-main-light);
+    border-color: var(--border-light);
+}
+body.light-mode .modal-content h3 {
+    color: var(--text-main-light);
+}
+body.light-mode .search-input {
+    background: var(--input-bg-light);
+    border-color: var(--input-border-light);
+    color: var(--input-text-light);
+}
+body.light-mode .stat-box {
+    background: var(--card-bg-light);
+    border-color: var(--border-light);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+body.light-mode .cat-tab {
+    background: #e0e0e0;
+    color: #666;
+}
+body.light-mode .cat-tab.active {
+    background: var(--accent);
+    color: white;
+}
+body.light-mode .modal-input {
+    background: var(--input-bg-light);
+    border-color: var(--input-border-light);
+    color: var(--input-text-light);
+}
+body.light-mode .modal-input::placeholder {
+    color: #666;
+}
+body.light-mode .detail-row {
+    border-bottom-color: #eee;
+    color: var(--text-main-light);
+}
+body.light-mode .history-item {
+    border-bottom-color: #eee;
+}
+body.light-mode .chart-container {
+    background: var(--card-bg-light);
+    color: var(--text-main-light);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+body.light-mode .detail-container {
+    background: var(--detail-bg-light);
+    color: var(--text-main-light);
+    border: 1px solid var(--border-light);
+}
+body.light-mode .detail-container .detail-row {
+    border-bottom-color: #eee;
+    color: var(--text-main-light);
+}
+body.light-mode .detail-container .detail-row span {
+    color: var(--text-main-light);
+}
+body.light-mode .detail-container .detail-total {
+    color: var(--accent);
+    font-weight: bold;
+}
+body.light-mode .detail-container .customer-info {
+    color: #666;
+}
+body.light-mode .detail-container .date-info {
+    color: #888;
+}
+body.light-mode .bottom-nav {
+    background: white;
+    border-top: 1px solid #ddd;
+}
+body.light-mode .nav-item {
+    color: #666;
+}
+body.light-mode .nav-item.active {
+    background: var(--accent);
+    color: white;
+}
+body.light-mode header {
+    background: linear-gradient(180deg, white 0%, #f5f5f5 100%);
+    border-bottom: 2px solid var(--accent);
+}
+body.light-mode header h1 {
+    color: var(--accent);
+}
+body.light-mode .header-btn {
+    color: #555;
+}
+body.light-mode .invoice-box.style-formal {
+    background: white;
+    color: #333;
+}
+body.light-mode .debt-card {
+    background: white;
+    border: 1px solid #ddd;
+    color: #333;
+}
+body.light-mode .debt-info h4 {
+    color: #333;
+}
+body.light-mode .stock-tag {
+    color: #666;
+}
+body.light-mode .stock-low {
+    color: var(--yellow);
+}
+body.light-mode .stock-out {
+    color: var(--red);
+}
+
+/* شريط حالة الاتصال */
+.connection-status {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 1000;
+    transition: opacity 0.5s ease, background-color 0.3s ease;
+    opacity: 1;
+}
+
+.connection-status.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.connection-status.online {
+    background-color: var(--green);
+}
+.connection-status.offline {
+    background-color: var(--red);
+}
+.connection-status.syncing {
+    background-color: var(--blue);
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; outline: none; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 0; height: 100vh; overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- تأثير النقر --- */
+.btn:active, .header-btn:active, .cat-tab:active, .nav-item:active, .modal-close-btn:active, .style-btn:active {
+    transform: scale(0.92) !important; transition: transform 0.1s ease;
+}
+.product-card:active {
+    transform: scale(0.95) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 10px rgba(225, 112, 85, 0.4) !important;
+    transition: all 0.1s ease;
+}
+
+/* --- الهيدر --- */
+header {
+    background: linear-gradient(180deg, #2d3436 0%, #1e272e 100%);
+    display: flex; flex-direction: column; gap: 0; padding: 15px; 
+    border-bottom: 2px solid var(--accent); box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+    z-index: 100; padding-top: calc(15px + env(safe-area-inset-top)); position: relative;
+    transition: background 0.3s;
+}
+.header-top-row { display: flex; justify-content: space-between; align-items: center; width: 100%; position: relative; height: 40px; }
+header h1 { margin: 0; font-size: 1.2rem; color: var(--accent); position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.header-icons { display: flex; gap: 15px; z-index: 2; }
+.header-btn { background: none; border: none; font-size: 1.4rem; cursor: pointer; padding: 0; min-width: 30px; display: flex; align-items: center; justify-content: center; transition: color 0.3s; }
+.lock-status-open { color: var(--green); text-shadow: 0 0 8px rgba(0, 184, 148, 0.6); }
+.lock-status-closed { color: #b2bec3; }
+
+/* أيقونة الجرس مع التنبيه */
+.bell-alert {
+    position: relative;
+    animation: pulse 2s infinite;
+}
+.bell-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--red);
+    color: white;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* --- الفلاتر --- */
+#storeFilters { display: none; opacity: 0; transition: opacity 0.3s ease, max-height 0.3s ease; max-height: 0; overflow: hidden; margin-top: 10px; border-top: 1px solid #444; padding-top: 10px; }
+#storeFilters.show { display: block; opacity: 1; max-height: 150px; }
+.category-scroll { display: flex; gap: 8px; overflow-x: auto; padding: 5px 15px 20px 15px; margin: 0 -15px; scrollbar-width: none; }
+.category-scroll::-webkit-scrollbar { display: none; }
+.cat-tab { background: #4d5861; color: #b2bec3; padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; white-space: nowrap; cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
+.cat-tab.active { background: var(--accent); color: white; border-color: white; font-weight: bold; box-shadow: 0 4px 12px rgba(225, 112, 85, 0.6); }
+.search-wrapper { width: 100%; margin-top: 5px; }
+.search-input { width: 100%; padding: 10px 15px 10px 40px; border-radius: 25px; border: 2px solid #4d5861; background: #353b48; color: white; font-size: 1rem; text-align: right; box-shadow: inset 0 2px 5px rgba(0,0,0,0.2); transition: all 0.3s; }
+.search-input:focus { border-color: var(--accent); background: #2d3436; }
+
+/* --- المحتوى --- */
+.content-area { flex: 1; overflow-y: auto; padding: 15px; padding-bottom: 100px; scroll-behavior: smooth; transition: background-color 0.3s; }
+.products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding-top: 10px; }
+.product-card { 
+    background: var(--card-bg-dark); 
+    border: 1px solid #4d5861; 
+    border-radius: 12px; 
+    padding: 10px; 
+    text-align: center; 
+    position: relative; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); 
+    overflow: visible; 
+    user-select: none; 
+    -webkit-user-select: none; 
+    transition: all 0.2s ease;
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.3s ease, transform 0.3s ease, all 0.2s ease;
+}
+/* كلاس لإخفاء العناصر أثناء البحث */
+.product-card.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    pointer-events: none;
+    overflow: hidden;
+}
+.stock-tag { font-size: 0.7rem; color: #b2bec3; margin-top: 5px; display: block; }
+.stock-low { color: var(--yellow); font-weight: bold; }
+.stock-out { color: var(--red); font-weight: bold; text-decoration: line-through; }
+.short-code { position: absolute; top: 5px; right: 5px; background: var(--yellow); color: #2d3436; font-size: 0.7rem; font-weight: bold; padding: 2px 5px; border-radius: 4px; transition: right 0.3s ease; box-shadow: 0 2px 5px rgba(241, 196, 15, 0.4); }
+.short-code.shifted { right: 35px; }
+.qty-badge { position: absolute; top: -10px; right: -10px; background: var(--accent); color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; font-size: 0.85rem; font-weight: bold; z-index: 10; border: 2px solid var(--bg-dark); box-shadow: 0 3px 8px rgba(225, 112, 85, 0.5); }
+
+/* --- الفاتورة --- */
+.invoice-box { background: white; color: black; padding: 15px; border-radius: 12px; min-height: 300px; position: relative; transition: all 0.3s ease; }
+.shop-header { text-align: center; border-bottom: 2px dashed #ccc; padding-bottom: 10px; margin-bottom: 10px; }
+.shop-header p { margin: 5px; font-size: 0.9rem; color: #333; }
+
+.invoice-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.9rem; }
+.invoice-table th { background: #636e72; color: white; padding: 8px 5px; font-weight: normal; }
+.invoice-table td { border-bottom: 1px solid #eee; padding: 8px 5px; text-align: center; vertical-align: middle;}
+.invoice-footer-note { text-align: center; margin-top: 20px; font-size: 0.75rem; color: #555; border-top: 1px solid #eee; padding-top: 5px; }
+
+/* تنسيق معلومات الزبون الجديد - في نفس السطر */
+.customer-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px 0;
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px dashed #ddd;
+    flex-wrap: nowrap;
+}
+.customer-info-item {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 8px 5px;
+    border-radius: 5px;
+}
+.customer-info-item:hover {
+    background-color: #f5f5f5;
+}
+.customer-info-label {
+    font-weight: bold;
+    color: #333;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    margin-left: 8px;
+}
+.customer-info-value {
+    color: var(--blue);
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    min-width: 0;
+    text-align: left;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.customer-info-value.empty {
+    color: #999;
+    font-style: italic;
+    font-weight: normal;
+}
+
+/* خط فاصل بين العنصرين */
+.customer-info-separator {
+    width: 1px;
+    height: 30px;
+    background-color: #ddd;
+    margin: 0 10px;
+}
+
+/* --- ثيمات الفاتورة --- */
+.invoice-box.style-formal { border: 2px solid #2d3436; border-radius: 0; }
+.style-formal .shop-header { border-bottom: 4px solid var(--accent); background: #f1f2f6; margin: -15px -15px 15px -15px; padding: 15px; }
+.style-formal .invoice-table th { background: var(--accent); color: white; text-transform: uppercase; border: none; }
+.style-formal .invoice-table tr:nth-child(even) { background-color: #f9f9f9; }
+.style-formal #grandTotalBox { background: #e1e1e1; color: black; border: 2px solid var(--accent); }
+
+.invoice-box.style-thermal { width: 100%; font-family: 'Courier New', Courier, monospace; padding: 5px; border-radius: 0; border: 1px solid #ddd; }
+.style-thermal .shop-header { border-bottom: 2px dashed black; padding-bottom: 5px; }
+.style-thermal .shop-header p, .style-thermal .shop-header h2 { color: black !important; font-weight: 900; }
+.style-thermal .invoice-table th { background: none; color: black; border-bottom: 2px dashed black; font-weight: bold; }
+.style-thermal .invoice-table td { border-bottom: none; color: black; font-weight: bold; }
+.style-thermal .invoice-footer-note { border-top: 2px dashed black; color: black; }
+
+.invoice-box.style-simple { border: 1px solid #eee; border-radius: 15px; box-shadow: none; }
+.style-simple .shop-header { border-bottom: 1px solid #eee; }
+.style-simple .invoice-table th { background: white; color: #333; border-bottom: 1px solid #333; font-weight: bold; }
+.style-simple #grandTotalBox { border: 2px solid #333; color: #333; padding: 10px; border-radius: 50px; }
+
+.style-switcher { display: flex; gap: 5px; margin-bottom: 10px; justify-content: center; }
+.style-btn { background: #444; border: 1px solid #666; color: #ccc; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; cursor: pointer; }
+.style-btn.active { background: var(--accent); color: white; border-color: white; font-weight: bold; }
+
+/* --- باقي العناصر --- */
+.btn { padding: 12px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.2s; }
+.btn-print { background: var(--green); box-shadow: 0 4px 10px rgba(0, 184, 148, 0.4); }
+.btn-image { background: var(--blue); box-shadow: 0 4px 10px rgba(9, 132, 227, 0.4); }
+.btn-wa { background: var(--whatsapp); box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4); }
+.btn-clear, .btn-delete { background: var(--red); box-shadow: 0 4px 10px rgba(214, 48, 49, 0.4); }
+.btn-add { background: var(--accent); box-shadow: 0 4px 10px rgba(225, 112, 85, 0.4); }
+.btn-edit { background: var(--purple); box-shadow: 0 4px 10px rgba(108, 92, 231, 0.4); } 
+.btn-partial { background: var(--yellow); color: #2d3436; box-shadow: 0 4px 10px rgba(241, 196, 15, 0.4); }
+
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+.btn-full { width: 100%; margin-top: 10px; padding: 15px; border-radius: 12px; font-size: 1rem; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+
+.debt-card { background: var(--card-bg-dark); padding: 15px; border-radius: 10px; margin-bottom: 10px; border-right: 4px solid var(--red); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+.debt-info h4 { margin: 0 0 5px 0; color: white; }
+.debt-amount { color: var(--red); font-weight: bold; font-size: 1.1rem; }
+
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.stat-box { background: var(--card-bg-dark); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #444; transition: all 0.3s; }
+.stat-val { font-size: 1.5rem; font-weight: bold; color: var(--accent); margin: 5px 0; }
+.stat-label { font-size: 0.8rem; color: #aaa; }
+
+/* الرسم البياني */
+.chart-container {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+    height: 250px;
+}
+.chart-container canvas {
+    max-width: 100%;
+    max-height: 200px;
+}
+
+/* حاوية التفاصيل في النافذة */
+.detail-container {
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid;
+    text-align: right;
+    transition: all 0.3s;
+}
+.detail-row:last-child {
+    border-bottom: none;
+}
+.detail-total {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 2px solid;
+    transition: all 0.3s;
+}
+.customer-info {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+.date-info {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+}
+
+.modal-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0,0,0,0.8); 
+    display: none; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 200; 
+    backdrop-filter: blur(3px); 
+    cursor: pointer;
+}
+.modal-content { 
+    background: var(--modal-bg-dark); 
+    padding: 25px; 
+    border-radius: 20px; 
+    width: 90%; 
+    max-width: 350px; 
+    text-align: center; 
+    border: 1px solid #555; 
+    position: relative; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+    max-height: 80vh; 
+    overflow-y: auto; 
+    transition: all 0.3s; 
+    cursor: default;
+}
+.modal-input { width: 100%; padding: 12px; margin: 10px 0; background: #222; border: 1px solid #555; color: white; text-align: center; border-radius: 8px; font-size: 1rem; transition: all 0.3s; }
+.modal-close-btn { position: absolute; top: 10px; left: 10px; width: 30px; height: 30px; background: var(--red); color: white; border: none; border-radius: 50%; font-weight: bold; font-size: 1.2rem; line-height: 30px; cursor: pointer; box-shadow: 0 3px 8px rgba(214, 48, 49, 0.5); z-index: 10;}
+.modal-total { color: var(--accent); border-bottom: 1px solid #555; padding-bottom: 10px; margin-bottom: 15px; }
+
+.confirm-actions { display: flex; gap: 10px; margin-top: 20px; }
+.confirm-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; }
+.confirm-yes { background: var(--red); }
+.confirm-no { background: #636e72; }
+
+.history-item { text-align: right; padding: 10px; border-bottom: 1px solid #555; margin-bottom: 5px; }
+.hist-date { color: #aaa; font-size: 0.8rem; }
+.hist-val { font-weight: bold; }
+.hist-type-new { color: var(--red); }
+.hist-type-pay { color: var(--green); }
+
+#toastBox { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 300; pointer-events: none; width: 90%; max-width: 300px; }
+
+.toast { 
+    padding: 12px; 
+    border-radius: 25px; 
+    margin-bottom: 10px; 
+    text-align: center; 
+    backdrop-filter: blur(5px); 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+/* التوست في الوضع الليلي */
+body.dark-mode .toast {
+    background: var(--toast-bg-dark);
+    color: var(--toast-text-dark);
+    border: 1px solid var(--toast-border-dark);
+}
+
+/* التوست في الوضع النهاري */
+body.light-mode .toast {
+    background: var(--toast-bg-light);
+    color: var(--toast-text-light);
+    border: 1px solid var(--toast-border-light);
+}
+
+/* ألوان خاصة لأنواع التوست المختلفة في الوضع الليلي */
+body.dark-mode .toast.error {
+    background: rgba(214, 48, 49, 0.95);
+    border-color: var(--red);
+}
+
+body.dark-mode .toast.success {
+    background: rgba(0, 184, 148, 0.95);
+    border-color: var(--green);
+}
+
+body.dark-mode .toast.warning {
+    background: rgba(241, 196, 15, 0.95);
+    border-color: var(--yellow);
+}
+
+/* ألوان خاصة لأنواع التوست المختلفة في الوضع النهاري */
+body.light-mode .toast.error {
+    background: rgba(214, 48, 49, 0.9);
+    border-color: var(--red);
+    color: white;
+}
+
+body.light-mode .toast.success {
+    background: rgba(0, 184, 148, 0.9);
+    border-color: var(--green);
+    color: white;
+}
+
+body.light-mode .toast.warning {
+    background: rgba(241, 196, 15, 0.9);
+    border-color: var(--yellow);
+    color: #333;
+}
+.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #2d3436; display: flex; justify-content: space-around; padding: 10px; border-top: 1px solid #444; z-index: 100; padding-bottom: calc(10px + env(safe-area-inset-bottom)); transition: background 0.3s; }
+.nav-item { color: #b2bec3; text-align: center; font-size: 0.75rem; padding: 5px 10px; border-radius: 15px; flex: 1; transition: 0.2s; }
+.nav-item.active { background: var(--accent); color: white; font-weight: bold; transform: translateY(-5px); }
+.nav-icon { display: block; font-size: 1.2rem; margin-bottom: 2px; }
+
+.editable-price { text-decoration: underline; text-decoration-style: dashed; cursor: pointer; color: var(--blue); font-weight: bold; }
+
+/* === تعديلات الطباعة المحسنة === */
+@media print {
+    @page {
+        margin: 0.5cm !important;
+        size: auto;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    /* إخفاء جميع العناصر غير المرغوبة في الطباعة */
+    .bottom-nav, 
+    header, 
+    .action-grid, 
+    .btn-full, 
+    .category-scroll, 
+    .add-new-btn, 
+    .search-container, 
+    .modal-overlay, 
+    .edit-btn, 
+    .short-code, 
+    .qty-badge, 
+    #toastBox, 
+    .style-switcher, 
+    .btn-edit-cart,
+    #storeFilters,
+    .header-top-row,
+    .header-icons,
+    .bottom-nav {
+        display: none !important;
+    }
+    
+    /* إخفاء الأقسام الأخرى */
+    #storeSection, 
+    #archiveSection, 
+    #debtSection, 
+    #statsSection { 
+        display: none !important; 
+    }
+    
+    /* إظهار قسم الفاتورة فقط */
+    #cartSection { 
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .invoice-box { 
+        border: none !important; 
+        padding: 0 !important; 
+        margin: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        min-height: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* إزالة الخلفيات والألوان */
+    .invoice-box.style-formal,
+    .invoice-box.style-thermal,
+    .invoice-box.style-simple {
+        background: white !important;
+        color: black !important;
+        border: 1px solid #ccc !important;
+    }
+    
+    /* جعل السعر أسود بدون خط */
+    .editable-price { 
+        text-decoration: none !important; 
+        color: black !important;
+        font-weight: bold !important;
+    }
+    
+    /* جعل معلومات الزبون تبدو كنص عادي عند الطباعة */
+    .customer-info-item {
+        cursor: default !important;
+    }
+    .customer-info-value {
+        text-decoration: none !important;
+        color: black !important;
+        font-weight: bold !important;
+    }
+    .customer-info-value.empty {
+        color: #666 !important;
+        font-style: italic !important;
+    }
+    .customer-info-separator {
+        background-color: #999 !important;
+    }
+    
+    /* تحسين عرض الجدول */
+    .invoice-table {
+        width: 100% !important;
+        font-size: 11pt !important;
+        border-collapse: collapse !important;
+    }
+    
+    .invoice-table th,
+    .invoice-table td {
+        padding: 5px 3px !important;
+        border: 1px solid #ddd !important;
+    }
+    
+    .invoice-table th {
+        background: #f0f0f0 !important;
+        color: black !important;
+        font-weight: bold !important;
+    }
+    
+    /* إزالة هوامش المتصفح الافتراضية */
+    body::before,
+    body::after {
+        display: none !important;
+    }
+    
+    /* منع تقسيم الصفحة داخل العناصر المهمة */
+    .shop-header,
+    .invoice-table {
+        page-break-inside: avoid;
+    }
+    
+    /* تكبير الخط قليلاً للطباعة */
+    .shop-header h2 {
+        font-size: 16pt !important;
+    }
+    
+    .shop-header p {
+        font-size: 10pt !important;
+    }
+    
+    #grandTotalBox {
+        border: 2px solid black !important;
+        background: #f9f9f9 !important;
+        color: black !important;
+        margin-top: 20px !important;
+        padding: 15px !important;
+    }
+    
+    /* إخفاء أزرار الحذف في الجدول */
+    .invoice-table td:last-child {
+        display: none !important;
+    }
+    
+    /* إخفاء زر التعديل */
+    .btn-edit-cart {
+        display: none !important;
+    }
+    
+    /* طباعة التاريخ ورقم الفاتورة بوضوح */
+    #invoiceNum,
+    #invoiceDate {
+        font-weight: bold !important;
+        font-size: 11pt !important;
+    }
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 400px) {
+    .customer-info-label {
+        font-size: 0.8rem;
+        margin-left: 5px;
+    }
+    .customer-info-value {
+        font-size: 0.8rem;
+    }
+    .customer-info-separator {
+        margin: 0 5px;
+    }
+    .header-icons {
+        gap: 10px;
+    }
+}
+
+/* تنسيق إضافي لنافذة معلومات كلمة السر */
+#passwordInfoModal .modal-content {
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* تنسيق للفواتير في كشف حساب الديون */
+.invoice-history-item {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.invoice-history-item:hover {
+    background-color: rgba(225, 112, 85, 0.1);
+}
+
+.invoice-history-item .hist-val {
+    font-size: 1rem;
+}
+
+.invoice-history-item .hist-date {
+    font-size: 0.75rem;
+}
